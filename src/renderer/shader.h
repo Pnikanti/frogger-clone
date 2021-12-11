@@ -27,10 +27,11 @@ public:
 	void Unbind() const;
 
 	//Set uniforms
-	void SetUniform4fv(const std::string& name, const glm::vec4& v0);
-	void SetUniform3fv(const std::string& name, const glm::vec3& v0);
-	void SetUniform2fv(const std::string& name, const glm::vec2& v0);
-	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& v0);
+	void SetUniform4fv(const std::string& name, glm::vec4& v0);
+	void SetUniform3fv(const std::string& name, glm::vec3& v0);
+	void SetUniform2fv(const std::string& name, glm::vec2& v0);
+	void SetUniform1i(const std::string& name, int v0);
+	void SetUniformMatrix4fv(const std::string& name, glm::mat4& v0);
 
 private:
 	int GetUniformLocation(const std::string& name);

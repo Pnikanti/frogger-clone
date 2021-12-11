@@ -41,7 +41,10 @@ public:
 public:
 	VertexBufferLayout()
 		: m_Stride(0) {}
-	
+
+	VertexBufferLayout(unsigned int stride)
+		: m_Stride(stride) {}
+
 	template<typename T>
 	void Push(unsigned int count)
 	{
@@ -84,6 +87,7 @@ public:
 	VertexBuffer(const void* data, unsigned int size);
 	~VertexBuffer();
 
+	void Set(const void* data, unsigned int size);
 	void Bind() const;
 	void Unbind() const;
 };
@@ -98,6 +102,7 @@ public:
 	IndexBuffer(const unsigned int* data, unsigned int count);
 	~IndexBuffer();
 
+	void Set(const unsigned int* data, unsigned int count);
 	void Bind() const;
 	void Unbind() const;
 

@@ -59,13 +59,13 @@ void Game::Start()
 		glm::vec2(5.0f),
 		glm::vec2(1.0f),
 		0.0f, 
-		glm::vec3(1.0f, 1.0f, 0.0f), 
+		glm::vec3(1.0f, 1.0f, 1.0f), 
 		b2_kinematicBody, 
 		1.0f,
 		0.5f,
 		0.2f
 	);
-	ShaderManager::Get().UpdateUniform("viewProjection", Context::ViewProjectionMatrix);
+	ShaderManager::Get().UpdateUniform("u_ViewProjection", Context::ViewProjectionMatrix);
 	State = GameState::Play;
 }
 

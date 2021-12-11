@@ -4,6 +4,7 @@
 #include "shader.h"
 #include "buffer.h"
 #include "vertexarray.h"
+#include "texture.h"
 
 class Entity;
 
@@ -39,11 +40,7 @@ public:
 	virtual ~GraphicsComponent() = default;
 	virtual void Draw(Entity& entity);
 protected:
-	VertexBuffer* vb;
-	IndexBuffer* ib;
-	VertexArray* va;
-	VertexBufferLayout* layout;
-	Shader* shader;
+	GraphicsComponent::GraphicsComponent() = default;
 };
 
 class QuadComponent : public GraphicsComponent
@@ -52,20 +49,29 @@ public:
 	QuadComponent();
 	~QuadComponent();
 	void Draw(Entity& entity) override;
+public:
+	Shader* shader;
 private:
+	VertexBuffer vb;
+	IndexBuffer ib;
+	VertexArray va;
+	VertexBufferLayout layout;
 	Quad quad;
 };
 
-//class TexturedQuadComponent : public GraphicsComponent
-//{
-//public:
-//	TexturedQuadComponent(const char* textureFilePath);
-//	~TexturedQuadComponent();
-//	void Draw(Entity& entity) override;
-//private:
-//	TexturedQuad texturedQuad;
-//	unsigned int vertexArray;
-//	unsigned int vertexBuffer;
-//	unsigned int elementBuffer;
-//	unsigned int texture;
-//};
+class TexturedQuadComponent : public GraphicsComponent
+{
+public:
+	TexturedQuadComponent(const char* textureFilePath);
+	~TexturedQuadComponent();
+	void Draw(Entity& entity) override;
+public:
+	Shader* shader;
+private:
+	VertexBuffer vb;
+	IndexBuffer ib;
+	VertexArray va;
+	VertexBufferLayout layout;
+	Texture texture;
+	TexturedQuad tQuad;
+};

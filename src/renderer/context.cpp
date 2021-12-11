@@ -70,6 +70,7 @@ void Context::End()
 
 void Context::FrameBufferSizeCb(GLFWwindow* window, int width, int height)
 {
+	LOGGER_TRACE("Framebuffer resize!");
 	SCR_WIDTH = width;
 	SCR_HEIGHT = height;
 
@@ -115,7 +116,7 @@ void Context::RenderOneFrame()
 
 	Alive = !glfwWindowShouldClose(Window);
 	Renderer::Get().Clear();
-	Renderer::Get().SetClearColor(1.0f, 0.3f, 0.3f, 1.0f);
+	Renderer::Get().SetClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 	UpdateAllRenderTargets();
 	glfwSwapBuffers(Window);
 	glfwPollEvents();

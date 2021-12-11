@@ -19,6 +19,8 @@ set(SOURCES
 	 ${PROJECT_SOURCE_DIR}/src/renderer/vertexarray.cpp
 	 ${PROJECT_SOURCE_DIR}/src/utils/debug.cpp
 	 ${PROJECT_SOURCE_DIR}/src/utils/log.cpp
+	 ${PROJECT_SOURCE_DIR}/src/renderer/texture.cpp
+
 )
 set(STB_SOURCES
 	${PROJECT_SOURCE_DIR}/dependencies/stb_image/src/stb_image.cpp

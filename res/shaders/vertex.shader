@@ -1,14 +1,11 @@
 #version 330 core
 
-layout (location = 0) in vec3 aPos;
+layout (location = 0) in vec3 a_Position;
 
-out vec2 vertexPosition;
-
-uniform mat4 model;
-uniform mat4 viewProjection;
+uniform mat4 u_Model;
+uniform mat4 u_ViewProjection;
 
 void main()
 {
-	gl_Position = viewProjection * model * vec4(aPos, 1.0f);
-	vertexPosition = gl_Position.xy;
+	gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0f);
 }
