@@ -69,9 +69,8 @@ TexturedQuadComponent::TexturedQuadComponent(const char* textureFilePath) :
 	shader = new Shader(std::string("res/shaders/texturedvertex.shader"), std::string("res/shaders/texturedfragment.shader"));
 	ShaderManager::Get().GetShaders().emplace_back(shader);
 	
-	texture.Bind();
+	texture.Bind(0);
 	shader->SetUniform1i("u_Texture", 0);
-
 	layout = VertexBufferLayout();
 	layout.Push<float>(3); // vertex positions
 	layout.Push<float>(2); // texture positions
@@ -100,5 +99,61 @@ void TexturedQuadComponent::Draw(Entity& entity)
 	shader->SetUniformMatrix4fv("u_Model", model);
 	shader->SetUniform3fv("u_Color", entity.Color);
 	shader->SetUniform1i("u_Texture", 0);
+	Renderer::Get().Draw(va, ib, *shader);
+}
+
+TexturedSSQuadComponent::TexturedSSQuadComponent(const char* textureFilePath) :
+	tQuad(TexturedQuad()),
+	va(VertexArray()),
+	vb(VertexBuffer()),
+	ib(IndexBuffer()),
+	texture(Texture(textureFilePath)),
+	shader(nullptr)
+{
+	LOGGER_TRACE("TexturedSSQuadComponent constructor called");
+
+	va.Bind();
+	vb.Set(tQuad.vertices, sizeof(tQuad.vertices));
+	ib.Set(tQuad.indices, 6);
+
+	shader = new Shader(std::string("res/shaders/texturedvertex.shader"), std::string("res/shaders/texturedfragment.shader"));
+	ShaderManager::Get().GetShaders().emplace_back(shader);
+	shader->Bind();
+	texture.Bind(1);
+	shader->SetUniform1i("u_Texture", 1);
+	shader->SetUniform1f("u_AtlasRows", 4.0f);
+	shader->SetUniform2fv("u_AtlasSubTextureOffset", glm::vec2(2.0f, 3.0f));
+
+	layout = VertexBufferLayout();
+	layout.Push<float>(3); // vertex positions
+	layout.Push<float>(2); // texture positions
+	va.AddBuffer(vb, layout);
+
+	va.Unbind();
+	vb.Unbind();
+	ib.Unbind();
+	shader->Unbind();
+}
+
+TexturedSSQuadComponent::~TexturedSSQuadComponent()
+{
+	LOGGER_TRACE("TexturedSSQuadComponent destructor called");
+}
+
+void TexturedSSQuadComponent::Draw(Entity& entity)
+{
+	shader->Bind();
+	texture.Bind(1);
+
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(entity.GetPosition(), 0.0f))
+		* glm::rotate(glm::mat4(1.0f), entity.GetRotationRadians(), { 0.0f, 0.0f, 1.0f })
+		* glm::scale(glm::mat4(1.0f), glm::vec3(entity.GetSize(), 1.0f));
+
+	shader->SetUniformMatrix4fv("u_Model", model);
+	shader->SetUniform3fv("u_Color", entity.Color);
+	shader->SetUniform1i("u_Texture", 1);
+	//shader->SetUniform1f("u_AtlasRows", 4.0f);
+	//shader->SetUniform2fv("u_AtlasSubTextureOffset", glm::vec2(2.0f, 2.0f));
+
 	Renderer::Get().Draw(va, ib, *shader);
 }

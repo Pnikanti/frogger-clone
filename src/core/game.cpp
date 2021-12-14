@@ -55,7 +55,7 @@ void Game::Start()
 	CreateEntity(
 		new PlayerInputComponent(),
 		new PhysicsPolygonComponent(),
-		new QuadComponent(), 
+		new TexturedSSQuadComponent("res/textures/test-atlas.png"),
 		glm::vec2(5.0f),
 		glm::vec2(1.0f),
 		0.0f, 

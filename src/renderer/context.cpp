@@ -116,7 +116,7 @@ void Context::RenderOneFrame()
 
 	Alive = !glfwWindowShouldClose(Window);
 	Renderer::Get().Clear();
-	Renderer::Get().SetClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+	Renderer::Get().SetClearColor(1.0f, 0.0f, 1.0f, 1.0f);
 	UpdateAllRenderTargets();
 	glfwSwapBuffers(Window);
 	glfwPollEvents();

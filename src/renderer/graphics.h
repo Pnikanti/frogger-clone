@@ -75,3 +75,21 @@ private:
 	Texture texture;
 	TexturedQuad tQuad;
 };
+
+class TexturedSSQuadComponent : public GraphicsComponent
+{
+public:
+	TexturedSSQuadComponent(const char* textureFilePath);
+	~TexturedSSQuadComponent();
+	void Draw(Entity& entity) override;
+public:
+	Shader* shader;
+private:
+	VertexBuffer vb;
+	IndexBuffer ib;
+	VertexArray va;
+	VertexBufferLayout layout;
+	Texture texture;
+	TexturedQuad tQuad;
+};
+
